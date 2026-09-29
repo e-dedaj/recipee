@@ -112,3 +112,46 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+.servings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.servings label {
+  font-weight: 700;
+}
+
+.stepper {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.stepper button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.stepper input {
+  width: 4.5rem;
+  min-height: 2.75rem;
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+}
