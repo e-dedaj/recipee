@@ -8,34 +8,91 @@
 </head>
 
 <body>
+  <a class="skip-link" href="#recipe">Skip to recipe</a>
+
   <header class="page-header">
     <h1>Petulla</h1>
-    <p>Albanian fried dough, crisp outside and soft inside. Change the servings and every quantity follows.</p>
+    <p>
+      Albanian fried dough, crisp outside and soft inside.
+      Change the servings and every quantity follows.
+    </p>
   </header>
 
-  <main>
-    <section class="servings">
-      <label for="servings">Servings</label>
+  <main id="recipe" tabindex="-1">
+
+    <section class="servings" aria-labelledby="servings-label">
+      <label id="servings-label" for="servings">Servings</label>
 
       <div class="stepper">
-        <button type="button" id="fewer">−</button>
+        <button
+          type="button"
+          id="fewer"
+          aria-label="Fewer servings"
+          aria-controls="servings"
+        >
+          −
+        </button>
 
         <input
           id="servings"
           type="number"
+          inputmode="numeric"
           min="1"
           max="24"
           step="1"
           value="4"
         >
 
-        <button type="button" id="more">+</button>
+        <button
+          type="button"
+          id="more"
+          aria-label="More servings"
+          aria-controls="servings"
+        >
+          +
+        </button>
       </div>
     </section>
 
+    <p
+      id="status"
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+    ></p>
+
+    <div
+      class="switcher"
+      role="group"
+      aria-label="Show ingredients or method"
+    >
+      <button
+        type="button"
+        id="show-ingredients"
+        aria-pressed="true"
+        aria-controls="ingredients-panel"
+      >
+        Ingredients
+      </button>
+
+      <button
+        type="button"
+        id="show-method"
+        aria-pressed="false"
+        aria-controls="method-panel"
+      >
+        Method
+      </button>
+    </div>
+
     <div class="columns">
-      <section class="panel">
-        <h2>
+
+      <section
+        id="ingredients-panel"
+        class="panel"
+        aria-labelledby="ingredients-heading"
+      >
+        <h2 id="ingredients-heading">
           Ingredients for
           <span id="count">4</span>
           <span id="count-noun">servings</span>
@@ -79,8 +136,12 @@
         </ul>
       </section>
 
-      <section class="panel">
-        <h2>Method</h2>
+      <section
+        id="method-panel"
+        class="panel"
+        aria-labelledby="method-heading"
+      >
+        <h2 id="method-heading">Method</h2>
 
         <ol class="method">
           <li>Stir the yeast and sugar into the warm water and leave for 5 minutes, until foamy.</li>
@@ -91,6 +152,7 @@
           <li>Fry 2 to 3 minutes per side until golden, then drain on paper. Serve warm.</li>
         </ol>
       </section>
+
     </div>
   </main>
 
