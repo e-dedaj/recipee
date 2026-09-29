@@ -1,0 +1,1 @@
+# Recipe with adjustable servings
