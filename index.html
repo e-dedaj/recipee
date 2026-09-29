@@ -3,29 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Petulla</title>
+  <title>Petulla, with adjustable servings</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <header class="page-header">
     <h1>Petulla</h1>
-    <p>Albanian fried dough, crisp outside and soft inside.</p>
+    <p>Albanian fried dough, crisp outside and soft inside. Change the servings and every quantity follows.</p>
   </header>
 
   <main>
+    <section class="servings">
+      <label for="servings">Servings</label>
+
+      <div class="stepper">
+        <button type="button" id="fewer">−</button>
+
+        <input
+          id="servings"
+          type="number"
+          min="1"
+          max="24"
+          step="1"
+          value="4"
+        >
+
+        <button type="button" id="more">+</button>
+      </div>
+    </section>
+
     <div class="columns">
       <section class="panel">
-        <h2>Ingredients</h2>
+        <h2>
+          Ingredients for
+          <span id="count">4</span>
+          <span id="count-noun">servings</span>
+        </h2>
 
-        <ul class="ingredients">
-          <li><span class="qty">500 g</span> plain flour</li>
-          <li><span class="qty">7 g</span> dry yeast</li>
-          <li><span class="qty">1 tsp</span> sugar</li>
-          <li><span class="qty">1 tsp</span> salt</li>
-          <li><span class="qty">350 ml</span> warm water</li>
-          <li>Sunflower oil, for frying</li>
-          <li>Feta or jam, to serve</li>
+        <ul id="ingredients" class="ingredients">
+          <li data-qty="500" data-unit="g">
+            <span class="qty">500 g</span>
+            <span class="name">plain flour</span>
+          </li>
+
+          <li data-qty="7" data-unit="g">
+            <span class="qty">7 g</span>
+            <span class="name">dry yeast</span>
+          </li>
+
+          <li data-qty="1" data-unit="tsp">
+            <span class="qty">1 tsp</span>
+            <span class="name">sugar</span>
+          </li>
+
+          <li data-qty="1" data-unit="tsp">
+            <span class="qty">1 tsp</span>
+            <span class="name">salt</span>
+          </li>
+
+          <li data-qty="350" data-unit="ml">
+            <span class="qty">350 ml</span>
+            <span class="name">warm water</span>
+          </li>
+
+          <li>
+            <span class="qty">As needed</span>
+            <span class="name">sunflower oil, for frying</span>
+          </li>
+
+          <li>
+            <span class="qty">To serve</span>
+            <span class="name">feta or jam</span>
+          </li>
         </ul>
       </section>
 
