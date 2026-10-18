@@ -37,7 +37,8 @@
 
   function format(n, unit) {
     if (unit === 'g' || unit === 'ml') {
-      return String(Math.round(n));
+      var r = Math.round(n);
+      return { text: String(r), value: r };
     }
 
     var whole = Math.floor(n);
@@ -45,75 +46,44 @@
     var best = FRACTIONS[0];
 
     FRACTIONS.forEach(function (f) {
-      if (Math.abs(f[0] - frac) < Math.abs(best[0] - frac)) {
-        best = f;
-      }
+      if (Math.abs(f[0] - frac) < Math.abs(best[0] - frac)) best = f;
     });
-
-    if (best[0] === 1) {
-      whole += 1;
-      best = FRACTIONS[0];
-    }
-
-    if (whole === 0) {
-      return best[1] || '¼';
-    }
-
-    return String(whole) + best[1];
+    if (best[0] === 1) { whole += 1; best = FRACTIONS[0]; }
+    var value = whole + best[0];
+    var text = whole === 0 ? (best[1] || '\u00BC') : String(whole) + best[1];
+    return { text: text, value: whole === 0 && !best[1] ? 0.25 : value };
+    
   }
 
-  function spokenUnit(unit, text) {
+  function spokenUnit(unit, value) {
     var word = UNIT_WORDS[unit] || unit;
-
-    return text === '1' ||
-      text === '½' ||
-      text === '¼'
-      ? word
-      : word + 's';
+    return value <= 1 ? word : word + 's';
   }
 
-  function render() {
+  
+    function render() {
     var factor = servings / BASE_SERVINGS;
     var spoken = [];
 
     items.forEach(function (li) {
       var unit = li.getAttribute('data-unit');
-      var quantity = parseFloat(li.getAttribute('data-qty'));
+      var q = format(parseFloat(li.getAttribute('data-qty')) * factor, unit);
+      var name = li.querySelector('.name').textContent;
 
-      var text = format(quantity * factor, unit);
-
-      li.querySelector('.qty').textContent =
-        text + ' ' + unit;
-
-      spoken.push(
-        text +
-        ' ' +
-        spokenUnit(unit, text) +
-        ' ' +
-        li.querySelector('.name').textContent
-      );
+      li.querySelector('.qty').textContent = q.text + ' ' + unit;
+      spoken.push(q.text + ' ' + spokenUnit(unit, q.value) + ' ' + name);
     });
 
     countEl.textContent = servings;
-    nounEl.textContent =
-      servings === 1 ? 'serving' : 'servings';
+    nounEl.textContent = servings === 1 ? 'serving' : 'servings';
 
-    fewer.setAttribute(
-      'aria-disabled',
-      String(servings <= MIN)
-    );
-
-    more.setAttribute(
-      'aria-disabled',
-      String(servings >= MAX)
-    );
+    fewer.setAttribute('aria-disabled', String(servings <= MIN));
+    more.setAttribute('aria-disabled', String(servings >= MAX));
 
     announce(
-      'Quantities updated for ' +
-      servings +
+      'Quantities updated for ' + servings +
       (servings === 1 ? ' serving. ' : ' servings. ') +
-      spoken.join('. ') +
-      '.'
+      spoken.join('. ') + '.'
     );
   }
 
